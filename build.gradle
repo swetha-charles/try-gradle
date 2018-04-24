@@ -5,7 +5,42 @@
  * Learn how to create Gradle builds at https://guides.gradle.org/creating-new-gradle-builds/
  */
 
-task copy(type: Copy, group: "Custom", description: "Copies sources to the dest directory") {
+plugins{
+    id "base"
+    id "java"
+}
+
+sourceCompatibility = 1.9
+targetCompatibility = 1.9
+
+
+repositories {
+    mavenCentral()
+}
+
+dependencies{
+    compile group: 'com.google.guava', name: 'guava', version: '19+'
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['Try/src']
+        }
+    }
+
+    test {
+        java {
+            srcDirs = ['Try/test']
+        }
+    }
+}
+
+task zip(type: Zip, group: "swetha-makes-tasks", description: "Archives sources in a zip file") {
+    from "Try/src"
+}
+
+task copy(type: Copy, group: "swetha-makes-tasks", description: "Copies sources to the dest directory") {
     from "Try/src"
     into "Try/dest"
 }
